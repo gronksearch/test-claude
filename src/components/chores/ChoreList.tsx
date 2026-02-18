@@ -13,7 +13,7 @@ export function ChoreList() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Chores</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Chores</h1>
         <button
           onClick={() => setShowAdd(true)}
           className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
@@ -26,7 +26,7 @@ export function ChoreList() {
       </div>
 
       {chores.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-gray-400 dark:text-gray-500">
           <svg className="w-12 h-12 mx-auto mb-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
               d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -35,26 +35,26 @@ export function ChoreList() {
           <p className="text-sm mt-1">Create your first chore to get started.</p>
         </div>
       ) : (
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Chore</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Assignee</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Schedule</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Start</th>
+              <tr className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
+                <th className="text-left px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Chore</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Assignee</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Schedule</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Start</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
               {chores.map((chore) => {
                 const assignee = chore.assigneeId ? memberById.get(chore.assigneeId) : null;
                 return (
-                  <tr key={chore.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={chore.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{chore.title}</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{chore.title}</p>
                       {chore.description && (
-                        <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{chore.description}</p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 line-clamp-1">{chore.description}</p>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -64,21 +64,21 @@ export function ChoreList() {
                             className="w-2.5 h-2.5 rounded-full shrink-0"
                             style={{ backgroundColor: assignee.color }}
                           />
-                          <span className="text-gray-700">{assignee.name}</span>
+                          <span className="text-gray-700 dark:text-gray-200">{assignee.name}</span>
                         </span>
                       ) : (
-                        <span className="text-gray-400 italic">Unassigned</span>
+                        <span className="text-gray-400 dark:text-gray-500 italic">Unassigned</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
                       {recurrenceSummary(chore.recurrence)}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{chore.startDate}</td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{chore.startDate}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => setEditingChore(chore)}
-                          className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                           aria-label="Edit"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@ export function ChoreList() {
                         </button>
                         <button
                           onClick={() => removeChore(chore.id)}
-                          className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                           aria-label="Delete"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

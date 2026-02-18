@@ -54,16 +54,18 @@ const NAV_ITEMS: NavItem[] = [
 interface LayoutProps {
   activeTab: Tab;
   onTabChange: (tab: Tab) => void;
+  dark: boolean;
+  onToggleDark: () => void;
   children: ReactNode;
 }
 
-export function Layout({ activeTab, onTabChange, children }: LayoutProps) {
+export function Layout({ activeTab, onTabChange, dark, onToggleDark, children }: LayoutProps) {
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-950 overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-56 bg-white border-r border-gray-200 flex flex-col shrink-0">
+      <aside className="w-56 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col shrink-0">
         {/* Logo */}
-        <div className="px-5 py-5 border-b border-gray-100">
+        <div className="px-5 py-5 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,8 +74,8 @@ export function Layout({ activeTab, onTabChange, children }: LayoutProps) {
               </svg>
             </div>
             <div>
-              <p className="font-bold text-gray-900 text-sm leading-tight">Office Chores</p>
-              <p className="text-xs text-gray-400 leading-tight">Team task manager</p>
+              <p className="font-bold text-gray-900 dark:text-white text-sm leading-tight">Office Chores</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 leading-tight">Team task manager</p>
             </div>
           </div>
         </div>
@@ -88,16 +90,44 @@ export function Layout({ activeTab, onTabChange, children }: LayoutProps) {
                 onClick={() => onTabChange(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   active
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
-                <span className={active ? 'text-blue-600' : 'text-gray-400'}>{item.icon}</span>
+                <span className={active ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-gray-500'}>
+                  {item.icon}
+                </span>
                 {item.label}
               </button>
             );
           })}
         </nav>
+
+        {/* Dark mode toggle */}
+        <div className="px-3 py-4 border-t border-gray-100 dark:border-gray-700">
+          <button
+            onClick={onToggleDark}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+          >
+            {dark ? (
+              <>
+                <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+                Light mode
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                Dark mode
+              </>
+            )}
+          </button>
+        </div>
       </aside>
 
       {/* Main content */}

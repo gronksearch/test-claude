@@ -44,7 +44,7 @@ export function MemberList() {
   return (
     <div className="p-6 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Team Members</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Team Members</h1>
         <button
           onClick={openAdd}
           className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
@@ -57,7 +57,7 @@ export function MemberList() {
       </div>
 
       {members.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-gray-400 dark:text-gray-500">
           <svg className="w-12 h-12 mx-auto mb-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
               d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -70,7 +70,7 @@ export function MemberList() {
           {members.map((member) => {
             const assignedCount = chores.filter((c) => c.assigneeId === member.id).length;
             return (
-              <li key={member.id} className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-5 py-4 shadow-sm">
+              <li key={member.id} className="flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-5 py-4 shadow-sm">
                 <div className="flex items-center gap-4">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm shrink-0"
@@ -79,15 +79,15 @@ export function MemberList() {
                     {member.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{member.name}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="font-medium text-gray-900 dark:text-white">{member.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       {assignedCount} assigned chore{assignedCount !== 1 ? 's' : ''}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => handleDelete(member.id)}
-                  className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50"
+                  className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
                   aria-label={`Remove ${member.name}`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +111,7 @@ export function MemberList() {
             <>
               <button
                 onClick={() => setShowAdd(false)}
-                className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 Cancel
               </button>
@@ -127,7 +127,7 @@ export function MemberList() {
         >
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Name</label>
               <input
                 autoFocus
                 type="text"
@@ -135,11 +135,11 @@ export function MemberList() {
                 onChange={(e) => setName(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
                 placeholder="e.g. Alex"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Color</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Color</label>
               <div className="flex flex-wrap gap-2">
                 {MEMBER_COLORS.map((c) => (
                   <button
@@ -170,7 +170,7 @@ export function MemberList() {
             <>
               <button
                 onClick={() => setDeleteTarget(null)}
-                className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 Cancel
               </button>
@@ -183,7 +183,7 @@ export function MemberList() {
             </>
           }
         >
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             This member has chores assigned to them. Removing them will unassign all their chores.
             Are you sure?
           </p>

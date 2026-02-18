@@ -44,6 +44,8 @@ export function RecurrenceEditor({ value, onChange }: Props) {
     update({ daysOfWeek: next });
   }
 
+  const inputClass = "border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
+
   return (
     <div className="space-y-3">
       <label className="flex items-center gap-3 cursor-pointer">
@@ -51,28 +53,28 @@ export function RecurrenceEditor({ value, onChange }: Props) {
           type="checkbox"
           checked={enabled}
           onChange={toggle}
-          className="w-4 h-4 text-blue-600 rounded border-gray-300"
+          className="w-4 h-4 text-blue-600 rounded border-gray-300 dark:border-gray-600"
         />
-        <span className="text-sm font-medium text-gray-700">Recurring chore</span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Recurring chore</span>
       </label>
 
       {enabled && value && (
-        <div className="ml-7 space-y-3 border-l-2 border-blue-100 pl-4">
+        <div className="ml-7 space-y-3 border-l-2 border-blue-100 dark:border-blue-900 pl-4">
           {/* Frequency */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm text-gray-600">Repeat every</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">Repeat every</span>
             <input
               type="number"
               min={1}
               max={99}
               value={value.interval}
               onChange={(e) => update({ interval: Math.max(1, parseInt(e.target.value) || 1) })}
-              className="w-16 border border-gray-300 rounded px-2 py-1 text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-16 text-center ${inputClass}`}
             />
             <select
               value={value.frequency}
               onChange={(e) => setFrequency(e.target.value as Frequency)}
-              className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={inputClass}
             >
               <option value="daily">day(s)</option>
               <option value="weekly">week(s)</option>
@@ -83,7 +85,7 @@ export function RecurrenceEditor({ value, onChange }: Props) {
           {/* Weekly: day picker */}
           {value.frequency === 'weekly' && (
             <div>
-              <p className="text-xs text-gray-500 mb-1">On these days:</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">On these days:</p>
               <div className="flex gap-1 flex-wrap">
                 {DAY_LABELS.map((label, i) => {
                   const active = (value.daysOfWeek ?? []).includes(i);
@@ -95,7 +97,7 @@ export function RecurrenceEditor({ value, onChange }: Props) {
                       className={`px-2 py-1 rounded text-xs font-medium border transition-colors ${
                         active
                           ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
+                          : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-400'
                       }`}
                     >
                       {label}
@@ -109,7 +111,7 @@ export function RecurrenceEditor({ value, onChange }: Props) {
           {/* Monthly: day of month */}
           {value.frequency === 'monthly' && (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">On day</span>
+              <span className="text-sm text-gray-600 dark:text-gray-300">On day</span>
               <input
                 type="number"
                 min={1}
@@ -118,16 +120,16 @@ export function RecurrenceEditor({ value, onChange }: Props) {
                 onChange={(e) =>
                   update({ dayOfMonth: Math.min(31, Math.max(1, parseInt(e.target.value) || 1)) })
                 }
-                className="w-16 border border-gray-300 rounded px-2 py-1 text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-16 text-center ${inputClass}`}
               />
-              <span className="text-sm text-gray-600">of the month</span>
+              <span className="text-sm text-gray-600 dark:text-gray-300">of the month</span>
             </div>
           )}
 
           {/* End date */}
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600">Ends</span>
-            <label className="flex items-center gap-1.5 text-sm text-gray-600">
+            <span className="text-sm text-gray-600 dark:text-gray-300">Ends</span>
+            <label className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300">
               <input
                 type="radio"
                 name="end"
@@ -140,7 +142,7 @@ export function RecurrenceEditor({ value, onChange }: Props) {
               />
               Never
             </label>
-            <label className="flex items-center gap-1.5 text-sm text-gray-600">
+            <label className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300">
               <input
                 type="radio"
                 name="end"
@@ -155,7 +157,7 @@ export function RecurrenceEditor({ value, onChange }: Props) {
                 type="date"
                 value={value.endDate}
                 onChange={(e) => update({ endDate: e.target.value })}
-                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputClass}
               />
             )}
           </div>
